@@ -17,11 +17,21 @@ def printboard(board):
     print("-----------------------------")
     print(theboard['dwn-l']+"\t|"+theboard['dwn-mid']+"\t|"+theboard['dwn-r'])
     print("-----------------------------")
+
+
 printboard(theboard)
-print("instructions: enter top-r,top-mid ,top-l for right,middle and left position to fill the board")
-print("instructions: enter mid-l , mid-mid, mid-r  to fill the middle positions respectively")
-print("instructions: enter dwn-r ndwn-mid, dwn-l to fill the bottomd boards" )
-print("tips: mid-l means the middle left board and dwn-l means the downmost-letf board")
+
+
+def instruction():
+    print("instructions: enter top-r,top-mid ,top-l for right,middle and left position to fill the board")
+    print("instructions: enter mid-l , mid-mid, mid-r  to fill the middle positions respectively")
+    print("instructions: enter dwn-r ndwn-mid, dwn-l to fill the bottomd boards" )
+    print("tips: mid-l means the middle left board and dwn-l means the downmost-letf board")
+
+
+instruction()
+
+
 printboard(theboard)
 
 def check_win_x(theboard):
@@ -41,15 +51,45 @@ def check_win_o(theboard):
     
 print()
 while(True):
-   xturn= input("playerX  enter your position : ")
-   theboard[xturn]="x"
-   printboard(theboard)
-   if(check_win_x(theboard)):
+
+   try:
+
+    xturn= input("playerX  enter your position : ")
+
+    if(theboard[xturn]!=''):
+       print("**************************************\n")
+       print("you can overide an already played box")
+       print("****************")
+       printboard(theboard)
+       continue
+
+    theboard[xturn]="x"
+
+    printboard(theboard)
+
+    if(check_win_x(theboard)):
        break
-   Oturn=input("playerO enter your position : ")
-   theboard[Oturn]='o'
-   printboard(theboard)
-   if(check_win_o(theboard)):
+
+    Oturn=input("playerO enter your position : ")
+
+    if(theboard[Oturn]!=''):
+       print("**************************************\n")
+       print("you can overide an already played box")
+       print("this will cause x to play ahead of you")
+       print("****************")
+       printboard(theboard)
+       
+
+    theboard[Oturn]='o'
+
+    printboard(theboard)
+
+    if(check_win_o(theboard)):
        break
-   #check for winning states 
+    #handle wrong location error 
+   except KeyError:
+       print("wrong location")
+       print("read instruction\n")
+       
+       instruction()
   
