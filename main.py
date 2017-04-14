@@ -1,4 +1,6 @@
-import sys
+import sys #couldnt find a use case , too lazy to delete
+
+#representation of a tic-tac-toe board
 theboard={
     'top-l':"",'top-mid':"",'top-r':"",
     'mid-l':'','mid-mid':'','mid-r':'',
@@ -44,28 +46,48 @@ def check_win_x(theboard):
 
 
 def check_win_o(theboard):
+    #another  of the terrible code above
      if((theboard['top-l']=="o" and theboard['top-r']=='o' and theboard['top-mid']=='o') or (theboard['mid-l']=='o' and theboard['mid-mid']=='o' and theboard['mid-r']=='o') or (theboard['dwn-r']=='o' and theboard['dwn-l']=='o' and theboard['dwn-mid']=='o') or (theboard['top-l']=='o' and theboard['mid-l']=='o' and theboard['dwn-l']=='o') or (theboard['top-mid']=='o' and theboard['mid-mid']=='o' and theboard['dwn-mid']=='o') or(theboard['top-r']=='o' and theboard['mid-r']=='o' and theboard['dwn-r']=='o') or(theboard['top-r']=='o' and theboard['mid-mid']=='o' and theboard['dwn-l']=='o') or (theboard['top-l']=='o' and theboard['mid-mid']=='o' and theboard['dwn-r']=='o')):
        print("playerO is the winner")
        return True
         
     
 print()
+
+def no_more_moves(theboard):
+    if "" not in theboard.values():
+       
+        return True
+    return False
 while(True):
+   
 
    try:
+       #check if any move is till possible else end the game
+    if(no_more_moves(theboard)):
+        break
+   
+
+       
 
     xturn= input("playerX  enter your position : ")
 
-    if(theboard[xturn]!=''):
+    if(theboard[xturn]!=''):  #reject input if the location is not empy
        print("**************************************\n")
        print("you can overide an already played box")
        print("****************")
        printboard(theboard)
-       continue
-
-    theboard[xturn]="x"
+       contin
+    theboard[xturn]="x" #set the location entered to X
 
     printboard(theboard)
+    
+    #check for possible moves , if none end the game
+    
+    if(no_more_moves(theboard)):
+        print("\n!!no more move possible, game ended in a DRAW")
+        break
+        
 
     if(check_win_x(theboard)):
        break
@@ -80,16 +102,18 @@ while(True):
        printboard(theboard)
        
 
-    theboard[Oturn]='o'
+    theboard[Oturn]='o' #set the location to "o" as enterd by player0
 
     printboard(theboard)
 
     if(check_win_o(theboard)):
+       print("\n!!no more move possible, game ended in a DRAW")
        break
+     
     #handle wrong location error 
    except KeyError:
        print("wrong location")
        print("read instruction\n")
-       
+
        instruction()
   
